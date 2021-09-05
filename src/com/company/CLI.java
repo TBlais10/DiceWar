@@ -7,7 +7,7 @@ public class CLI {
 
     static Scanner scanner = new Scanner(System.in);
 
-    public static int getInt(Scanner scanner, int min, int max) {
+    public static int getInt(int min, int max) {
         try {
             //String[] blarg = {}; //This is a test for error messages
             System.out.print("Input: ");
@@ -15,17 +15,17 @@ public class CLI {
             //String asdf = blarg[1]; //This is a test for error messages
             if (input > max || input < min) {
                 System.out.println("Input is out of range! Please try again with a number between " + min + " and " + max + ".");
-                return getInt(scanner, min, max);
+                return getInt(min, max);
             }
             return input;
         } catch (InputMismatchException exception) {//testing for data types outside of int
             System.out.println("Incorrect input! Please provide a number and try again.");
             scanner.nextLine();
-            return getInt(scanner, min, max);
+            return getInt(min, max);
         } catch (Exception exception) {//testing for unknown errors
             System.out.println("An unknown error appeared.");
             scanner.nextLine();
-            return getInt(scanner, min, max);
+            return getInt(min, max);
         }
     }
 
