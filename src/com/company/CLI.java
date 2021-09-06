@@ -36,7 +36,7 @@ public class CLI {
     }
 
     public static void exit() {
-        System.out.println("\n---\nAlrighty! Exiting the program. Please come again!\n---");
+        System.out.println("\n---\nAlrighty! Exiting the game. Please come again!\n---");
         System.exit(0);
     }
 
