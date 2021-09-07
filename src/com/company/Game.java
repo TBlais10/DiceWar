@@ -8,6 +8,7 @@ public class Game {
     private int numOfRounds;
     private int numOfDice;
     private Die dice;
+    private ArrayList<Player> winner = new ArrayList<>();
 
     public Game(int numOfPlayers, int numOfRounds, int typeOfDice, int numOfDice) {
         this.numOfRounds = numOfRounds;
@@ -69,6 +70,13 @@ public class Game {
         } //TODO: Make a conditional that checks if multiple players have the same score.
 
             if (roundNum == numOfRounds && highestScore == scores.getScore()) {
+                winner.add(scores);
+                if (winner.size() > 1){
+                    System.out.println("And we have " + winner.size() + " winners! Congratulations to");
+                    for (Player winner : winner) {
+                        System.out.println(winner.getName() + " with " + winner.getScore() + "points!");
+                    }
+                }
                 Menu.flavorText("\n---\nAnd our winner for this Dice war is..." + scores.getName() + " with " + scores.getScore() + " points! Congratulations!!!\n---");
                 for (Player players : playerList) {
                     Menu.getScoreboard().add(players);
@@ -81,7 +89,7 @@ public class Game {
     }
 
     private void generatePlayers(int numOfPlayers) {
-
+        playerList.clear();
         for (int i = 0; i < numOfPlayers; i++) {
             System.out.println("Enter your name!");
             String name = CLI.getString();
@@ -91,7 +99,6 @@ public class Game {
             //adding the player to the arraylist
         }
         startGame();
-
     }
 
     private ArrayList<Die> generateDice() {
