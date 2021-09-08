@@ -22,19 +22,19 @@ public class Menu {
         System.out.println("Would you like to start a new Dice War?!!! Y/N?");
         String input = CLI.getString(1,4);
         if (input.substring(0, 1).equalsIgnoreCase("Y")){
-            flavorText("Great! How many players will there be? Min of 2 players.");
+            CLI.flavorText("Great! How many players will there be? Min of 2 players.");
             int players = CLI.getInt(2,10);
             System.out.println();
 
-            flavorText("Ok! How many rounds do you want to play? Min of 1 round, max of 10.");
+            CLI.flavorText("Ok! How many rounds do you want to play? Min of 1 round, max of 10.");
             int rounds = CLI.getInt(1,10);
             System.out.println();
 
-            flavorText("Awesome! What type of dice do you want to use? Enter a number representing how many sides the dice has. Min of 2, max of 20.");
+            CLI.flavorText("Awesome! What type of dice do you want to use? Enter a number representing how many sides the dice has. Min of 2, max of 20.");
             int typeOfDice = CLI.getInt(2, 20);
             System.out.println();
 
-            flavorText("Almost done! How many dice will each player roll per round? Min of 1, max of 10.\n");
+            CLI.flavorText("Almost done! How many dice will each player roll per round? Min of 1, max of 10.\n");
             int diceAmount = CLI.getInt(1,10);
             System.out.println();
 
@@ -44,12 +44,12 @@ public class Menu {
             CLI.scanner.nextLine();
             String answer = CLI.getString(1, 3);
             if (answer.substring(0, 1).equalsIgnoreCase("Y")){
-                flavorText("Excellent! Lets get rolling!!!");
+                CLI.flavorText("Excellent! Lets get rolling!!!");
                 scoreboard.clear();
                 new Game(players, rounds, typeOfDice, diceAmount);
             }
             else if (answer.substring(0, 1).equalsIgnoreCase("N")){
-                flavorText("Ok! Restarting the form...");
+                CLI.flavorText("Ok! Restarting the form...");
                 //add method once code has been refactored
             }
 
@@ -95,12 +95,6 @@ public class Menu {
                 System.out.println((i + 1) + ") " + scoreboard.get(i).getName() + "....." + scoreboard.get(i).getScore() + " Points");
             }
         }
-    }
-
-    public static void flavorText(String statement){
-        System.out.println(". . . . . .");
-        System.out.println(statement);
-        System.out.print(". . . . . .\n");
     }
 
     public static List<Player> getScoreboard() {

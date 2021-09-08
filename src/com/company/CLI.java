@@ -84,4 +84,10 @@ public class CLI {
         return false;
     }
 
+    public static void flavorText(String statement){
+        System.out.println(". . . . . .");
+        System.out.println(statement);
+        System.out.print(". . . . . .\n");
+    }
+
 }

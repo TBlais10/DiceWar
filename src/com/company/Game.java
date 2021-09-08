@@ -8,20 +8,22 @@ public class Game {
     private int numOfRounds;
     private int numOfDice;
     private Die dice;
+    private int typeOfDice;
     private ArrayList<Player> winner = new ArrayList<>();
 
     public Game(int numOfPlayers, int numOfRounds, int typeOfDice, int numOfDice) {
         this.numOfRounds = numOfRounds;
         this.numOfDice = numOfDice;
+        this.typeOfDice = typeOfDice;
         this.dice = new Die(typeOfDice);
         generatePlayers(numOfPlayers);
     }
 
     public void startGame() {
-        Menu.flavorText("Welcome to Dice War! The rules are simple, roll the highest number of dice to win the game! This game will last for " + numOfRounds + "rounds. May you roll well!");
+        CLI.flavorText("Welcome to Dice War! The rules are simple, roll the highest number of dice to win the game! This game will last for " + numOfRounds + "rounds. May you roll well!");
 //        System.out.println("Dice type: " + dice.getSides());
         for (int i = 1; i <= numOfRounds; i++) {
-            Menu.flavorText("Round " + i + "!");
+            CLI.flavorText("Round " + i + "!...Out of " + numOfRounds);
 
             for (Player player : playerList) {
                 playerTurn(player);
@@ -47,7 +49,7 @@ public class Game {
                 roundScore += dice.getValue();
             }
             player.setScore(player.getScore() + roundScore);
-            Menu.flavorText(player.getName() + " rolled a total of " + roundScore + " for this round!");
+            CLI.flavorText(player.getName() + " rolled a total of " + roundScore + " for this round!");
 //            System.out.println(player.getScore() + " The score");
         }
     }
@@ -77,7 +79,7 @@ public class Game {
                         System.out.println(winner.getName() + " with " + winner.getScore() + "points!");
                     }
                 }
-                Menu.flavorText("\n---\nAnd our winner for this Dice war is..." + scores.getName() + " with " + scores.getScore() + " points! Congratulations!!!\n---");
+                CLI.flavorText("\n---\nAnd our winner for this Dice war is..." + scores.getName() + " with " + scores.getScore() + " points! Congratulations!!!\n---");
                 for (Player players : playerList) {
                     Menu.getScoreboard().add(players);
                 }
@@ -95,6 +97,9 @@ public class Game {
             String name = CLI.getString();
             Player newPlayer = new Player(name);
             playerList.add(newPlayer);
+            Hand hand = new Hand(); //new code added from class
+            hand.setDice(generateDice());
+            newPlayer.setHand(hand);
             //scanner prompts for asking for their name
             //adding the player to the arraylist
         }
@@ -102,8 +107,11 @@ public class Game {
     }
 
     private ArrayList<Die> generateDice() {
-
-        return null;
+        ArrayList<Die>tempArr = new ArrayList<>();
+        for (int i = 0; i < numOfDice; i++) {
+            Die newDice = new Die(typeOfDice);
+        }
+        return tempArr;
     }
 
 }

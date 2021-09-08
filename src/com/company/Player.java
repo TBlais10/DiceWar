@@ -4,6 +4,7 @@ public class Player implements Comparable<Player> {
 
     private String name;
     private int score;
+    private Hand hand;
 
     public Player(String name) {
         this.name = name;
@@ -24,6 +25,10 @@ public class Player implements Comparable<Player> {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public void setHand(Hand hand) {
+        this.hand = hand;
     }
 
     @Override
