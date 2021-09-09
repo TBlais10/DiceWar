@@ -2,7 +2,6 @@ package com.company;
 
 public class Die {
 
-
     private final int sides;
     private int value;
 
@@ -18,10 +17,6 @@ public class Die {
 
     public int getValue() {
         return value;
-    }
-
-    public int getSides() {
-        return sides;
     }
 
 }

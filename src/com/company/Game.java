@@ -9,6 +9,7 @@ public class Game {
     private int numOfDice;
     private Die dice;
     private int typeOfDice;
+    Hand hand = new Hand(); //new code added from class
     private ArrayList<Player> winner = new ArrayList<>();
 
     public Game(int numOfPlayers, int numOfRounds, int typeOfDice, int numOfDice) {
@@ -29,6 +30,18 @@ public class Game {
                 playerTurn(player);
             }
             printScore(i);
+            if (i + 1 != numOfRounds) {
+                System.out.println("\nReady for the next round? Press enter to continue.");
+                String answer = CLI.getString(0, 1);
+                if (answer == "") {
+                    System.out.println("Moving to round " + (i + 1) + " !");
+                } else {
+                    System.out.println("\nThat was the Last Round! Ready to see the final scores? Press enter to continue.");
+                    if (answer == "") {
+                        System.out.println("Moving to scoring...");
+                    }
+                }
+            }
         }
 
     }
@@ -39,21 +52,16 @@ public class Game {
 
         System.out.println("It's " + player.getName() + "'s turn! Press Enter to roll!!!");
         String enter = CLI.getString(0, 1);
-        if (CLI.scanner.hasNextLine()) {
-            enter = CLI.scanner.nextLine();
-        }
         if (enter.equals("")) {
-            for (int i = 1; i <= numOfDice; i++) {
-                dice.rollDie();
-                System.out.println("Dice " + i + " rolled a " + dice.getValue() + "!");
-                roundScore += dice.getValue();
+            hand.rollDice();
+            for (int i = 0; i < hand.dice.size(); i++) {
+                roundScore += hand.dice.get(i).getValue();
             }
             player.setScore(player.getScore() + roundScore);
             CLI.flavorText(player.getName() + " rolled a total of " + roundScore + " for this round!");
 //            System.out.println(player.getScore() + " The score");
         }
     }
-
 
     public void printScore(int roundNum) {
         int highestScore = 0;
@@ -66,14 +74,14 @@ public class Game {
             }
         }
 
-        for (Player scores : playerList){
+        for (Player scores : playerList) {
             if (roundNum != numOfRounds && highestScore == scores.getScore()) {
                 System.out.println("\n---\n" + scores.getName() + " is in the lead with " + scores.getScore() + " points!\n---");
-        } //TODO: Make a conditional that checks if multiple players have the same score.
+            } //TODO: Make a conditional that checks if multiple players have the same score.
 
             if (roundNum == numOfRounds && highestScore == scores.getScore()) {
                 winner.add(scores);
-                if (winner.size() > 1){
+                if (winner.size() > 1) {
                     System.out.println("And we have " + winner.size() + " winners! Congratulations to");
                     for (Player winner : winner) {
                         System.out.println(winner.getName() + " with " + winner.getScore() + "points!");
@@ -97,7 +105,6 @@ public class Game {
             String name = CLI.getString();
             Player newPlayer = new Player(name);
             playerList.add(newPlayer);
-            Hand hand = new Hand(); //new code added from class
             hand.setDice(generateDice());
             newPlayer.setHand(hand);
             //scanner prompts for asking for their name
@@ -107,9 +114,10 @@ public class Game {
     }
 
     private ArrayList<Die> generateDice() {
-        ArrayList<Die>tempArr = new ArrayList<>();
+        ArrayList<Die> tempArr = new ArrayList<>();
         for (int i = 0; i < numOfDice; i++) {
             Die newDice = new Die(typeOfDice);
+            tempArr.add(newDice);
         }
         return tempArr;
     }

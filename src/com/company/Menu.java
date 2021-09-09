@@ -34,7 +34,7 @@ public class Menu {
             int typeOfDice = CLI.getInt(2, 20);
             System.out.println();
 
-            CLI.flavorText("Almost done! How many dice will each player roll per round? Min of 1, max of 10.\n");
+            CLI.flavorText("Almost done! How many dice will each player roll per round? Min of 1, max of 10.");
             int diceAmount = CLI.getInt(1,10);
             System.out.println();
 
@@ -80,10 +80,6 @@ public class Menu {
 
         int randomQuote = (int) (Math.random() * diceQuotes.size());
         System.out.println((diceQuotes.get(randomQuote)));
-    }
-
-    public static void subMenu() {
-
     }
 
     public static void scoreboard() {
