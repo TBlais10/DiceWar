@@ -41,7 +41,7 @@ public class Menu {
             newDiceWarConfirmation(players, rounds, typeOfDice, diceAmount);
 
         } else if (input.substring(0, 1).equalsIgnoreCase("N")) {
-            CLI.exit();
+            CLI.exit("Dice Wars");
         } else if (input.equalsIgnoreCase("test")) {
             new Game(2, 3, 6, 4);
         }

@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.InputMismatchException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class CLI {
@@ -8,25 +9,26 @@ public class CLI {
     static Scanner scanner = new Scanner(System.in);
 
     public static int getInt(int min, int max) {
-        try {
-            //String[] blarg = {}; //This is a test for error messages
-            System.out.print("Input: ");
-            int input = scanner.nextInt();
-            //String asdf = blarg[1]; //This is a test for error messages
-            if (input > max || input < min) {
-                System.out.println("Input is out of range! Please try again with a number between " + min + " and " + max + ".");
-                return getInt(min, max);
+        int input;
+        while (true) {
+            try {
+                //String[] blarg = {}; //This is a test for error messages
+                System.out.print("Input: ");
+                input = scanner.nextInt();
+                //String asdf = blarg[1]; //This is a test for error messages
+                if (input > max || input < min) {
+                    System.out.println("Input is out of range! Please try again with a number between " + min + " and " + max + ".");
+                } else {
+                    break;
+                }
+            } catch (InputMismatchException exception) {//testing for data types outside of int
+                System.out.println("Incorrect input! Please provide a number and try again.");
+            } catch (Exception exception) {//testing for unknown errors
+                System.out.println("An unknown error appeared.");
+
             }
-            return input;
-        } catch (InputMismatchException exception) {//testing for data types outside of int
-            System.out.println("Incorrect input! Please provide a number and try again.");
-            scanner.nextLine();
-            return getInt(min, max);
-        } catch (Exception exception) {//testing for unknown errors
-            System.out.println("An unknown error appeared.");
-            scanner.nextLine();
-            return getInt(min, max);
         }
+        return input;
     }
 
     public static int getInt() {
@@ -40,10 +42,24 @@ public class CLI {
         System.exit(0);
     }
 
+    public static void exit(String statement) {
+        System.out.println("Are you sure you want to exit " + statement + " ? Y/N");
+        String answer = getString(1, 3);
+        if (answer.equalsIgnoreCase("Y")) {
+            System.out.println("Closing program! See you soon!");
+            System.exit(0);
+        } else if (answer.equalsIgnoreCase("N")) {
+            System.out.println("Ok, returning to main menu!");
+            Menu.mainMenu();
+        }
+    }
+
     public static String getString(int min, int max) {
+        String userInput;
+
         try {
             System.out.print("Input: ");
-            String userInput = scanner.nextLine().trim();
+            userInput = scanner.nextLine().trim();
 
             if (userStringCheck(min, max, userInput)) return getString(min, max);
             return userInput;
@@ -70,21 +86,20 @@ public class CLI {
     }
 
     private static boolean userStringCheck(int min, int max, String userInput) {
-        if (userInput == " ") {System.out.println("Your input cannot be empty! Please try again.");
+        if (Objects.equals(userInput, " ")) {
+            System.out.println("Your input cannot be empty! Please try again.");
             return true;
-        }
-        else if (userInput.length() < min){
+        } else if (userInput.length() < min) {
             System.out.println("You cannot have less than " + min + " characters! Please try again");
             return true;
-        }
-        else if (userInput.length() > max) {
+        } else if (userInput.length() > max) {
             System.out.println("You have exceeded the character limit of " + max + " by " + (userInput.length() - max) + "! Please try again.");
             return true;
         }
         return false;
     }
 
-    public static void flavorText(String statement){
+    public static void flavorText(String statement) {
         System.out.println(". . . . . .");
         System.out.println(statement);
         System.out.print(". . . . . .\n");
