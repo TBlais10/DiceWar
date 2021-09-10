@@ -1,15 +1,16 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Game {
 
-    private ArrayList<Player> playerList = new ArrayList<Player>();
+    private ArrayList<Player> playerList = new ArrayList<>();
     private int numOfRounds;
     private int numOfDice;
     private Die dice;
     private int typeOfDice;
-    Hand hand = new Hand(); //new code added from class
+    private Hand hand; //new code added from class
     private ArrayList<Player> winner = new ArrayList<>();
 
     public Game(int numOfPlayers, int numOfRounds, int typeOfDice, int numOfDice) {
@@ -33,11 +34,11 @@ public class Game {
             if (i + 1 != numOfRounds) {
                 System.out.println("\nReady for the next round? Press enter to continue.");
                 String answer = CLI.getString(0, 1);
-                if (answer == "") {
+                if (Objects.equals(answer, "")) {
                     System.out.println("Moving to round " + (i + 1) + " !");
                 } else {
                     System.out.println("\nThat was the Last Round! Ready to see the final scores? Press enter to continue.");
-                    if (answer == "") {
+                    if (Objects.equals(answer, "")) {
                         System.out.println("Moving to scoring...");
                     }
                 }
@@ -64,7 +65,7 @@ public class Game {
     }
 
     public void printScore(int roundNum) {
-        int highestScore = 0;
+        int highestScore = 0; //to keep track of who is
         System.out.println("\n---\nTotal Scores as of Round " + roundNum + " !\n---");
         for (Player player : playerList) {
             System.out.println(player.getName() + " has a total of " + player.getScore() + " points.");
@@ -80,22 +81,26 @@ public class Game {
             } //TODO: Make a conditional that checks if multiple players have the same score.
 
             if (roundNum == numOfRounds && highestScore == scores.getScore()) {
-                winner.add(scores);
-                if (winner.size() > 1) {
-                    System.out.println("And we have " + winner.size() + " winners! Congratulations to");
-                    for (Player winner : winner) {
-                        System.out.println(winner.getName() + " with " + winner.getScore() + "points!");
-                    }
-                }
-                CLI.flavorText("\n---\nAnd our winner for this Dice war is..." + scores.getName() + " with " + scores.getScore() + " points! Congratulations!!!\n---");
-                for (Player players : playerList) {
-                    Menu.getScoreboard().add(players);
-                }
-                Menu.mainMenu();
-            } //TODO: Make a conditional that checks if multiple players have the same score.
+                winnerScores(scores); //Takes the logic of determining winner and adding the winner(s) into a new arraylist.
+            }
 
         }
 
+    }
+
+    private void winnerScores(Player scores) {
+        winner.add(scores);
+        if (winner.size() > 1) { //if there are multiple players w/ the same ending score.
+            System.out.println("And we have " + winner.size() + " winners! Congratulations to...");
+            for (Player winner : winner) {
+                System.out.println(winner.getName() + " with " + winner.getScore() + "points!");
+            }
+        } //Following code is for only one winner.
+        CLI.flavorText("\n---\nAnd our winner for this Dice war is..." + scores.getName() + " with " + scores.getScore() + " points! Congratulations!!!\n---");
+        for (Player players : playerList) {
+            Menu.getScoreboard().add(players);
+        }
+        Menu.mainMenu();
     }
 
     private void generatePlayers(int numOfPlayers) {
@@ -105,10 +110,9 @@ public class Game {
             String name = CLI.getString();
             Player newPlayer = new Player(name);
             playerList.add(newPlayer);
+            hand = new Hand(); //creates a new Dice arraylist which is unique for each player.
             hand.setDice(generateDice());
             newPlayer.setHand(hand);
-            //scanner prompts for asking for their name
-            //adding the player to the arraylist
         }
         startGame();
     }
