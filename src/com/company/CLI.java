@@ -48,7 +48,7 @@ public class CLI {
         if (answer.equalsIgnoreCase("Y")) {
             System.out.println("Closing program! See you soon!");
             System.exit(0);
-        } else if (answer.equalsIgnoreCase("N")) {
+        } else if (answer.equalsIgnoreCase("N")) { // this statement will be dependent on the scope of the program.
             System.out.println("Ok, returning to main menu!");
             Menu.mainMenu();
         }
@@ -56,23 +56,30 @@ public class CLI {
 
     public static String getString(int min, int max) {
         String userInput;
+        while (true) {
+            try {
+                System.out.print("Input: ");
+                userInput = scanner.nextLine().trim();
 
-        try {
-            System.out.print("Input: ");
-            userInput = scanner.nextLine().trim();
+                if (Objects.equals(userInput, " ")) {
+                    System.out.println("Your input cannot be empty! Please try again.");
+                } else if (userInput.length() < min) {
+                    System.out.println("You cannot have less than " + min + " characters! Please try again");
+                } else if (userInput.length() > max) {
+                    System.out.println("You have exceeded the character limit of " + max + " by " + (userInput.length() - max) + "! Please try again.");
+                } else {
+                    break;
+                }
 
-            if (userStringCheck(min, max, userInput)) return getString(min, max);
-            return userInput;
-
-        } catch (InputMismatchException exception) {
-            System.out.println("Incorrect input! Please provide a word or phrase and try again.");
-            scanner.nextLine();
-            return getString(min, max);
-        } catch (Exception exception) {
-            System.out.println("An unknown error appeared.");
-            scanner.nextLine();
-            return getString(min, max);
+            } catch (InputMismatchException exception) {
+                System.out.println("Incorrect input! Please provide a word or phrase and try again.");
+                scanner.nextLine();
+            } catch (Exception exception) {
+                System.out.println("An unknown error appeared.");
+                scanner.nextLine();
+            }
         }
+        return userInput;
     }
 
     public static String getString() {
@@ -83,20 +90,6 @@ public class CLI {
             return getString();
         }
         return input;
-    }
-
-    private static boolean userStringCheck(int min, int max, String userInput) {
-        if (Objects.equals(userInput, " ")) {
-            System.out.println("Your input cannot be empty! Please try again.");
-            return true;
-        } else if (userInput.length() < min) {
-            System.out.println("You cannot have less than " + min + " characters! Please try again");
-            return true;
-        } else if (userInput.length() > max) {
-            System.out.println("You have exceeded the character limit of " + max + " by " + (userInput.length() - max) + "! Please try again.");
-            return true;
-        }
-        return false;
     }
 
     public static void flavorText(String statement) {
