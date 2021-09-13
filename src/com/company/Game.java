@@ -11,14 +11,16 @@ public class Game {
     private int numOfDice;
     private Die dice;
     private int typeOfDice;
+    private int answer; //To select the type of game. 1 = Standard Dice War, 2 = DnD Dice Game.
     private Hand hand; //new code added from class
     private ArrayList<Player> winner = new ArrayList<>();
 
-    public Game(int numOfPlayers, int numOfRounds, int typeOfDice, int numOfDice) {
+    public Game(int numOfPlayers, int numOfRounds, int typeOfDice, int numOfDice, int answer) {
         this.numOfRounds = numOfRounds;
         this.numOfDice = numOfDice;
         this.typeOfDice = typeOfDice;
         this.dice = new Die(typeOfDice);
+        this.answer = answer;
         generatePlayers(numOfPlayers);
     }
 
@@ -51,7 +53,8 @@ public class Game {
 
     public void startDnDGame(){
         CLI.newTerminalScreen();
-        CLI.flavorText(". ","Welcome to the Dungeons and Dragons dice war. Here you will roll a d8, a d6, and a d4 to determine who wins each round...\nImagine for me if you wandered your way into a high steaks game inside of a high profile gambling table within the prestigious Glass Tower's Casino, 'The Diamond Sleight'. Win or lose is up to the roll of the dice. Who ever among you rolls highest in three rounds takes the pot...");
+        CLI.flavorText(". ","Welcome to the Dungeons and Dragons dice war. Here you will roll a d8, a d6, and a d4 to determine who wins each round...");
+        CLI.flavorText(". ","Imagine for me if you wandered your way into a high steaks game inside of a high profile gambling table within the prestigious Glass Tower's Casino, 'The Diamond Sleight'. Win or lose is up to the roll of the dice. Who ever among you rolls highest in three rounds takes the pot...");
         for (int i = 1; i <= 3; i++) {
             CLI.flavorText(". ","Round " + i + "!...Out of " + numOfRounds);
 
@@ -133,6 +136,7 @@ public class Game {
     }
 
     private void generatePlayers(int numOfPlayers) {
+        if(answer == 1){
         playerList.clear();
         for (int i = 0; i < numOfPlayers; i++) {
             System.out.println("Enter your name!");
@@ -144,6 +148,20 @@ public class Game {
             newPlayer.setHand(hand);
         }
         startGame();
+        }
+        else if (answer == 2){
+            playerList.clear();
+            for (int i = 0; i < numOfPlayers; i++) {
+                System.out.println("What's your name adventurer?");
+                String name = CLI.getString();
+                Player newPlayer = new Player(name);
+                playerList.add(newPlayer);
+                hand = new Hand(); //creates a new Dice arraylist which is unique for each player.
+                hand.setDice(generateDnDDice());
+                newPlayer.setHand(hand);
+            }
+            startDnDGame();
+        }
     }
 
     private ArrayList<Die> generateDice() {
@@ -168,19 +186,5 @@ public class Game {
 
         return tempArr;
     } //generates a d8, d6, and d4 Die objects and returns the arraylist.
-
-    private void generateDnDPlayers(int numOfPlayers) {
-        playerList.clear();
-        for (int i = 0; i < numOfPlayers; i++) {
-            System.out.println("Enter your name!");
-            String name = CLI.getString();
-            Player newPlayer = new Player(name);
-            playerList.add(newPlayer);
-            hand = new Hand(); //creates a new Dice arraylist which is unique for each player.
-            hand.setDice(generateDnDDice());
-            newPlayer.setHand(hand);
-        }
-        startGame();
-    }
 
 }

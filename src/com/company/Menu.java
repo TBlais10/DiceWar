@@ -22,8 +22,10 @@ public class Menu {
         System.out.println("Would you like to start a new Dice War?!!! Y/N?");
         String input = CLI.getString(1, 4);
         if (input.substring(0, 1).equalsIgnoreCase("Y")) {
-            CLI.newTerminalScreen();
-            CLI.flavorText(". ", "Great! How many players will there be? Min of 2 players.");
+            CLI.flavorText(". ", "Ok! Which dice war would you like to play?\n1) Standard Dice War\n2) Dungeons and Dragons Dice War");
+            int answer = CLI.getInt(1,2);
+            if (answer == 1){ //Starts the process for the Standard Dice War.
+            CLI.flavorText(". ", "Great the Standard Dice War! How many players will there be? Min of 2 players.");
             int players = CLI.getInt(2, 10);
 
             CLI.newTerminalScreen();
@@ -39,11 +41,20 @@ public class Menu {
             int diceAmount = CLI.getInt(1, 10);
 
             newDiceWarConfirmation(players, rounds, typeOfDice, diceAmount);
+            }
+
+            else if (answer == 2){
+                CLI.flavorText(". ", "Ah yes! The Dungeons and Dragons Dice War. How many will be joining us at the table? Minimum of 2, max of 10");
+                int players = CLI.getInt(2, 10);
+                CLI.flavorText(". ", "Very well. Roll for initiative!");
+                new Game(players, 3, 0, 0, 2);
+            }
+
 
         } else if (input.substring(0, 1).equalsIgnoreCase("N")) {
             CLI.exit("Dice Wars");
         } else if (input.equalsIgnoreCase("test")) {
-            new Game(2, 3, 6, 4);
+            new Game(2, 3, 6, 4, 1);
         }
 
     }
@@ -58,7 +69,7 @@ public class Menu {
         if (answer.substring(0, 1).equalsIgnoreCase("Y")) {
             CLI.flavorText(". ", "Excellent! Lets get rolling!!!");
             scoreboard.clear();
-            new Game(players, rounds, typeOfDice, diceAmount);
+            new Game(players, rounds, typeOfDice, diceAmount, 1);
         } else if (answer.substring(0, 1).equalsIgnoreCase("N")) {
             CLI.flavorText(". ", "Ok! Restarting the form...");
             //add method once code has been refactored
