@@ -92,10 +92,14 @@ public class CLI {
         return input;
     }
 
-    public static void flavorText(String statement) {
-        System.out.println(". . . . . .");
+    public static void flavorText(String flavor, String statement) {
+        System.out.println(flavor.repeat(6));
         System.out.println(statement);
-        System.out.print(". . . . . .\n");
+        System.out.print(flavor.repeat(6) + "\n");
+    }
+
+    public static void newTerminalScreen(){
+        System.out.println("\n".repeat(30));
     }
 
 }

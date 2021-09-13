@@ -6,6 +6,7 @@ import java.util.Objects;
 public class Game {
 
     private ArrayList<Player> playerList = new ArrayList<>();
+    private ArrayList<Player> npcPlayers;
     private int numOfRounds;
     private int numOfDice;
     private Die dice;
@@ -22,10 +23,11 @@ public class Game {
     }
 
     public void startGame() {
-        CLI.flavorText("Welcome to Dice War! The rules are simple, roll the highest number of dice to win the game! This game will last for " + numOfRounds + "rounds. May you roll well!");
+        CLI.newTerminalScreen();
+        CLI.flavorText(". ","Welcome to Dice War! The rules are simple, roll the highest number of dice to win the game! This game will last for " + numOfRounds + "rounds. May you roll well!");
 //        System.out.println("Dice type: " + dice.getSides());
         for (int i = 1; i <= numOfRounds; i++) {
-            CLI.flavorText("Round " + i + "!...Out of " + numOfRounds);
+            CLI.flavorText(". ","Round " + i + "!...Out of " + numOfRounds);
 
             for (Player player : playerList) {
                 playerTurn(player);
@@ -47,6 +49,31 @@ public class Game {
 
     }
 
+    public void startDnDGame(){
+        CLI.newTerminalScreen();
+        CLI.flavorText(". ","Welcome to the Dungeons and Dragons dice war. Here you will roll a d8, a d6, and a d4 to determine who wins each round...\nImagine for me if you wandered your way into a high steaks game inside of a high profile gambling table within the prestigious Glass Tower's Casino, 'The Diamond Sleight'. Win or lose is up to the roll of the dice. Who ever among you rolls highest in three rounds takes the pot...");
+        for (int i = 1; i <= 3; i++) {
+            CLI.flavorText(". ","Round " + i + "!...Out of " + numOfRounds);
+
+            for (Player player : playerList) {
+                playerTurn(player);
+            }
+            printScore(i);
+            if (i + 1 != numOfRounds) {
+                System.out.println("\nReady for the next round? Press enter to continue.");
+                String answer = CLI.getString(0, 1);
+                if (Objects.equals(answer, "")) {
+                    System.out.println("Moving to round " + (i + 1) + " !");
+                } else {
+                    System.out.println("\nThat was the Last Round! Ready to see the final scores? Press enter to continue.");
+                    if (Objects.equals(answer, "")) {
+                        System.out.println("Moving to scoring...");
+                    }
+                }
+            }
+        }
+    }
+
     private void playerTurn(Player player) {
         int roundScore = 0;
 //        System.out.println("Dice type: " + dice.getSides());
@@ -59,13 +86,15 @@ public class Game {
                 roundScore += hand.dice.get(i).getValue();
             }
             player.setScore(player.getScore() + roundScore);
-            CLI.flavorText(player.getName() + " rolled a total of " + roundScore + " for this round!");
+            CLI.flavorText(". ",player.getName() + " rolled a total of " + roundScore + " for this round!");
 //            System.out.println(player.getScore() + " The score");
         }
     }
 
     public void printScore(int roundNum) {
-        int highestScore = 0; //to keep track of who is
+        CLI.newTerminalScreen();
+
+        int highestScore = 0; //to keep track of who is leading
         System.out.println("\n---\nTotal Scores as of Round " + roundNum + " !\n---");
         for (Player player : playerList) {
             System.out.println(player.getName() + " has a total of " + player.getScore() + " points.");
@@ -78,7 +107,7 @@ public class Game {
         for (Player scores : playerList) {
             if (roundNum != numOfRounds && highestScore == scores.getScore()) {
                 System.out.println("\n---\n" + scores.getName() + " is in the lead with " + scores.getScore() + " points!\n---");
-            } //TODO: Make a conditional that checks if multiple players have the same score.
+            }
 
             if (roundNum == numOfRounds && highestScore == scores.getScore()) {
                 winnerScores(scores); //Takes the logic of determining winner and adding the winner(s) into a new arraylist.
@@ -96,7 +125,7 @@ public class Game {
                 System.out.println(winner.getName() + " with " + winner.getScore() + "points!");
             }
         } //Following code is for only one winner.
-        CLI.flavorText("\n---\nAnd our winner for this Dice war is..." + scores.getName() + " with " + scores.getScore() + " points! Congratulations!!!\n---");
+        CLI.flavorText(". ","And our winner for this Dice war is..." + scores.getName() + " with " + scores.getScore() + " points! Congratulations!!!");
         for (Player players : playerList) {
             Menu.getScoreboard().add(players);
         }
@@ -124,6 +153,34 @@ public class Game {
             tempArr.add(newDice);
         }
         return tempArr;
+    }
+
+    private ArrayList<Die> generateDnDDice(){
+        ArrayList<Die> tempArr = new ArrayList<>();
+        Die d8 = new Die(8);
+        tempArr.add(d8);
+
+        Die d6 = new Die(6);
+        tempArr.add(d6);
+
+        Die d4 = new Die(4);
+        tempArr.add(d4);
+
+        return tempArr;
+    } //generates a d8, d6, and d4 Die objects and returns the arraylist.
+
+    private void generateDnDPlayers(int numOfPlayers) {
+        playerList.clear();
+        for (int i = 0; i < numOfPlayers; i++) {
+            System.out.println("Enter your name!");
+            String name = CLI.getString();
+            Player newPlayer = new Player(name);
+            playerList.add(newPlayer);
+            hand = new Hand(); //creates a new Dice arraylist which is unique for each player.
+            hand.setDice(generateDnDDice());
+            newPlayer.setHand(hand);
+        }
+        startGame();
     }
 
 }
