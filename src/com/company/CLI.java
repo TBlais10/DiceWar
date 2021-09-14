@@ -94,7 +94,9 @@ public class CLI {
 
     public static void flavorText(String flavor, String statement) {
         System.out.println(flavor.repeat(6));
+        System.out.println("\n");
         System.out.println(statement);
+        System.out.println("\n");
         System.out.print(flavor.repeat(6) + "\n");
     }
 

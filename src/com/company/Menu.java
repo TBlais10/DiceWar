@@ -15,7 +15,7 @@ public class Menu {
         getDiceQuote();
         System.out.print(". . . . . .\n");
         mainMenu();
-    }
+    } //Starts the program from main w/ a dice quote.
 
     public static void mainMenu() {
         scoreboard();
@@ -48,16 +48,15 @@ public class Menu {
                 int players = CLI.getInt(2, 10);
                 CLI.flavorText(". ", "Very well. Roll for initiative!");
                 new Game(players, 3, 0, 0, 2);
-            }
-
-
-        } else if (input.substring(0, 1).equalsIgnoreCase("N")) {
-            CLI.exit("Dice Wars");
+            } //Starts the dnd dice game.
+        }
+        else if (input.substring(0, 1).equalsIgnoreCase("N")) {
+            CLI.exit("Dice Wars"); //Exits the program.
         } else if (input.equalsIgnoreCase("test")) {
-            new Game(2, 3, 6, 4, 1);
+            new Game(2, 3, 6, 4, 1); //Quickly creates a game to test the program.
         }
 
-    }
+    } //The Main menu of the program.
 
     private static void newDiceWarConfirmation(int players, int rounds, int typeOfDice, int diceAmount) {
         CLI.newTerminalScreen();
@@ -72,9 +71,8 @@ public class Menu {
             new Game(players, rounds, typeOfDice, diceAmount, 1);
         } else if (answer.substring(0, 1).equalsIgnoreCase("N")) {
             CLI.flavorText(". ", "Ok! Restarting the form...");
-            //add method once code has been refactored
         }
-    }
+    } //This code takes the inputs from the Menu for Standard Dice War and asks the user to confirm their choices or start the forum again.
 
     public static void getDiceQuote() {
         diceQuotes.add("The dice of God are always loaded.\n" +
@@ -91,7 +89,7 @@ public class Menu {
 
         int randomQuote = (int) (Math.random() * diceQuotes.size());
         System.out.println((diceQuotes.get(randomQuote)));
-    }
+    } //An array of Dice Quotes that will fire randomly at the start of the program.
 
     public static void scoreboard() {
         if (scoreboard.size() != 0) {
@@ -102,7 +100,8 @@ public class Menu {
                 System.out.println((i + 1) + ") " + scoreboard.get(i).getName() + "....." + scoreboard.get(i).getScore() + " Points");
             }
         }
-    }
+        CLI.flavorText(". ", "MAIN MENU");
+    } //Takes the Arraylist full of the player scores from last game and shows.
 
     public static List<Player> getScoreboard() {
         return scoreboard;
