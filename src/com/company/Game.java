@@ -8,6 +8,7 @@ public class Game {
     private ArrayList<Player> playerList = new ArrayList<>();
     private ArrayList<Player> npcPlayers = new ArrayList<>();
     private int numOfRounds;
+    private int numOfNPCs;
     private int numOfDice;
     private Die dice;
     private int typeOfDice;
@@ -16,7 +17,8 @@ public class Game {
     private ArrayList<Player> winner = new ArrayList<>();
     //TODO: Create a new field for the Game constructor to keep track of user input for if they want 'npc players' added to their game.
 
-    public Game(int numOfPlayers, int numOfRounds, int typeOfDice, int numOfDice, int answer) {
+    public Game(int numOfPlayers, int numOfNPCs, int numOfRounds, int typeOfDice, int numOfDice, int answer) {
+        this.numOfNPCs = numOfNPCs;
         this.numOfRounds = numOfRounds;
         this.numOfDice = numOfDice;
         this.typeOfDice = typeOfDice;
@@ -96,10 +98,9 @@ public class Game {
     }
 
     public void printScore(int roundNum) {
-        CLI.newTerminalScreen();
 
         int highestScore = 0; //to keep track of who is leading
-        System.out.println("\n---\nTotal Scores as of Round " + roundNum + " !\n---");
+        CLI.flavorText("-", "Total Scores as of Round " + roundNum + "!");
         for (Player player : playerList) {
             System.out.println(player.getName() + " has a total of " + player.getScore() + " points.");
 
@@ -137,6 +138,8 @@ public class Game {
     }
 
     private void generatePlayers(int numOfPlayers) {
+        getNpcPlayers().clear();
+        generateNPCPlayers();
         if (answer == 1) {
             playerList.clear();
             for (int i = 0; i < numOfPlayers; i++) {
@@ -147,6 +150,9 @@ public class Game {
                 hand = new Hand(); //creates a new Dice arraylist which is unique for each player.
                 hand.setDice(generateDice());
                 newPlayer.setHand(hand);
+            }
+            if (numOfNPCs > 1){
+                addNPCPlayers(numOfNPCs);
             }
             startGame();
         } else if (answer == 2) {
@@ -159,6 +165,9 @@ public class Game {
                 hand = new Hand(); //creates a new Dice arraylist which is unique for each player.
                 hand.setDice(generateDnDDice());
                 newPlayer.setHand(hand);
+            }
+            if (numOfNPCs > 1){
+                addNPCPlayers(numOfNPCs);
             }
             startDnDGame();
         }

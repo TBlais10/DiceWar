@@ -29,6 +29,10 @@ public class Menu {
             int players = CLI.getInt(2, 10);
 
             CLI.newTerminalScreen();
+                CLI.flavorText(". ", "Awesome! Would you like to add extra NPC players? If you don't want to have any additional players, press 0. Otherwise! Enter in a minimum of 1, maximum of 8");
+                int npcPlayers = CLI.getInt(0, 8);
+
+            CLI.newTerminalScreen();
             CLI.flavorText(". ","Ok! How many rounds do you want to play? Min of 1 round, max of 10.");
             int rounds = CLI.getInt(1, 10);
 
@@ -40,37 +44,42 @@ public class Menu {
             CLI.flavorText(". ","Almost done! How many dice will each player roll per round? Min of 1, max of 10.");
             int diceAmount = CLI.getInt(1, 10);
 
-            newDiceWarConfirmation(players, rounds, typeOfDice, diceAmount);
+            newDiceWarConfirmation(players, npcPlayers, rounds, typeOfDice, diceAmount);
             }
 
             else if (answer == 2){
                 CLI.flavorText(". ", "Ah yes! The Dungeons and Dragons Dice War. How many will be joining us at the table? Minimum of 2, max of 10");
                 int players = CLI.getInt(2, 10);
+
+                CLI.newTerminalScreen();
+                CLI.flavorText(". ", "Right right... Would you like to add extra NPC players? If you don't want to have any additional players, press 0. Otherwise! Enter in a minimum of 1, maximum of 8");
+                int npcPlayers = CLI.getInt(0, 8);
+
                 CLI.flavorText(". ", "Very well. Roll for initiative!");
-                new Game(players, 3, 0, 0, 2);
+                new Game(players, npcPlayers,3, 0, 0, 2);
             } //Starts the dnd dice game.
         }
         else if (input.substring(0, 1).equalsIgnoreCase("N")) {
             CLI.exit("Dice Wars"); //Exits the program.
         } else if (input.equalsIgnoreCase("test")) {
-            new Game(2, 3, 6, 4, 1); //Quickly creates a game to test the program.
+            new Game(2, 0, 3, 6, 4, 1); //Quickly creates a game to test the program.
         }
 
     } //The Main menu of the program.
 
     //TODO: Add a question and scanner that asks about a player wanting to include NPC players.
 
-    private static void newDiceWarConfirmation(int players, int rounds, int typeOfDice, int diceAmount) {
+    private static void newDiceWarConfirmation(int players, int npcPlayers, int rounds, int typeOfDice, int diceAmount) {
         CLI.newTerminalScreen();
 
-        System.out.println("Ok, lets review!\nNumber of players: " + players + "\nNumber of Rounds: " + rounds + "\nType of dice your rolling: D" + typeOfDice + "\nThe amount of D" + typeOfDice + ": " + diceAmount);
+        System.out.println("Ok, lets review!\nNumber of players: " + players + "\nNumber of NPC players: " + npcPlayers + "\nNumber of Rounds: " + rounds + "\nType of dice your rolling: D" + typeOfDice + "\nThe amount of D" + typeOfDice + ": " + diceAmount);
         System.out.println("Is this all correct?\n Y to start the game or N to return to restart the form.");
         CLI.scanner.nextLine();
         String answer = CLI.getString(1, 3);
         if (answer.substring(0, 1).equalsIgnoreCase("Y")) {
             CLI.flavorText(". ", "Excellent! Lets get rolling!!!");
             scoreboard.clear();
-            new Game(players, rounds, typeOfDice, diceAmount, 1);
+            new Game(players, npcPlayers, rounds, typeOfDice, diceAmount, 1);
         } else if (answer.substring(0, 1).equalsIgnoreCase("N")) {
             CLI.flavorText(". ", "Ok! Restarting the form...");
         }
