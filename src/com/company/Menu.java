@@ -62,7 +62,7 @@ public class Menu {
         else if (input.substring(0, 1).equalsIgnoreCase("N")) {
             CLI.exit("Dice Wars"); //Exits the program.
         } else if (input.equalsIgnoreCase("test")) {
-            new Game(2, 0, 3, 6, 4, 1); //Quickly creates a game to test the program.
+            new Game(2, 0, 3, 1, 1, 1); //Quickly creates a game to test the program.
         }
 
     } //The Main menu of the program.

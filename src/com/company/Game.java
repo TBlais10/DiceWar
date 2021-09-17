@@ -38,20 +38,21 @@ public class Game {
                 playerTurn(player);
             }
             printScore(i);
-            if (i + 1 != numOfRounds) {
+            if (i != numOfRounds) {
                 System.out.println("\nReady for the next round? Press enter to continue.");
                 String answer = CLI.getString(0, 1);
                 if (Objects.equals(answer, "")) {
                     System.out.println("Moving to round " + (i + 1) + " !");
+                }
                 } else {
                     System.out.println("\nThat was the Last Round! Ready to see the final scores? Press enter to continue.");
+                    String answer = CLI.getString(0,1);
                     if (Objects.equals(answer, "")) {
                         System.out.println("Moving to scoring...");
+                        winnerCircle();
                     }
-                }
             }
         }
-
     }
 
     public void startDnDGame() {
@@ -115,22 +116,26 @@ public class Game {
             }
 
             if (roundNum == numOfRounds && highestScore == scores.getScore()) {
-                winnerScores(scores); //Takes the logic of determining winner and adding the winner(s) into a new arraylist.
+                winner.add(scores);
             }
 
         }
 
     }
 
-    private void winnerScores(Player scores) {
-        winner.add(scores);
-        if (winner.size() > 1) { //if there are multiple players w/ the same ending score.
+    private void winnerCircle() {
+        CLI.newTerminalScreen();
+        if (winner.size() == 1) { //if there is one winner.
+            CLI.flavorText(". ", "And our winner for this Dice war is..." + winner.get(0).getName() + " with " + winner.get(0).getScore() + " points! Congratulations!!!");
+        } else {
+            System.out.println(". ".repeat(6) + "\n");
             System.out.println("And we have " + winner.size() + " winners! Congratulations to...");
             for (Player winner : winner) {
-                System.out.println(winner.getName() + " with " + winner.getScore() + "points!");
-            }
-        } //Following code is for only one winner.
-        CLI.flavorText(". ", "And our winner for this Dice war is..." + scores.getName() + " with " + scores.getScore() + " points! Congratulations!!!");
+                System.out.println(winner.getName() + " with " + winner.getScore() + " points!");
+            }//Following code is for multiple winners.
+            System.out.println("\n" + ". ".repeat(6));
+        }
+        Menu.getScoreboard().clear();//clears the board from the last game to make way for this new set of scores.
         for (Player players : playerList) {
             Menu.getScoreboard().add(players);
         }
@@ -151,7 +156,7 @@ public class Game {
                 hand.setDice(generateDice());
                 newPlayer.setHand(hand);
             }
-            if (numOfNPCs > 1){
+            if (numOfNPCs > 1) {
                 addNPCPlayers(numOfNPCs);
             }
             startGame();
@@ -166,7 +171,7 @@ public class Game {
                 hand.setDice(generateDnDDice());
                 newPlayer.setHand(hand);
             }
-            if (numOfNPCs > 1){
+            if (numOfNPCs > 1) {
                 addNPCPlayers(numOfNPCs);
             }
             startDnDGame();
@@ -225,7 +230,7 @@ public class Game {
         getNpcPlayers().add(npc9);
     } //generates a list of non player objects and adds them to npcPlayer Arraylist
 
-    public void addNPCPlayers(int numOfNPCs){
+    public void addNPCPlayers(int numOfNPCs) {
         for (int i = 0; i < numOfNPCs; i++) { //Loops thru to add npc Players to the game.
             int getNPC = (int) (Math.random() * numOfNPCs);
             playerList.add(npcPlayers.get(getNPC));
@@ -237,5 +242,4 @@ public class Game {
     public ArrayList<Player> getNpcPlayers() {
         return npcPlayers;
     }
-
 }
