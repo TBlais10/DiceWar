@@ -15,7 +15,7 @@ public class Menu {
         getDiceQuote();
         System.out.print(". . . . . .\n");
         mainMenu();
-    } //Starts the program from main w/ a dice quote.
+    } //Starts the program from main w/ a die quote.
 
     public static void mainMenu() {
         scoreboard();
@@ -67,8 +67,6 @@ public class Menu {
 
     } //The Main menu of the program.
 
-    //TODO: Add a question and scanner that asks about a player wanting to include NPC players.
-
     private static void newDiceWarConfirmation(int players, int npcPlayers, int rounds, int typeOfDice, int diceAmount) {
         CLI.newTerminalScreen();
 
@@ -113,7 +111,6 @@ public class Menu {
         }
         CLI.flavorText(". ", "MAIN MENU");
     } //Takes the Arraylist full of the player scores from last game and shows.
-    //TODO: Add a random set of scores on the leaderboard to start off the game based off the npc players?
 
     public static List<Player> getScoreboard() {
         return scoreboard;

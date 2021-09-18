@@ -15,7 +15,6 @@ public class Game {
     private int answer; //To select the type of game. 1 = Standard Dice War, 2 = DnD Dice Game.
     private Hand hand; //new code added from class
     private ArrayList<Player> winner = new ArrayList<>();
-    //TODO: Create a new field for the Game constructor to keep track of user input for if they want 'npc players' added to their game.
 
     public Game(int numOfPlayers, int numOfNPCs, int numOfRounds, int typeOfDice, int numOfDice, int answer) {
         this.numOfNPCs = numOfNPCs;
@@ -231,10 +230,10 @@ public class Game {
     } //generates a list of non player objects and adds them to npcPlayer Arraylist
 
     public void addNPCPlayers(int numOfNPCs) {
-        for (int i = 0; i < numOfNPCs; i++) { //Loops thru to add npc Players to the game.
+        for (int i = 0; i < numOfNPCs; i++) { //Loops through to add npc Players to the game.
             int getNPC = (int) (Math.random() * numOfNPCs);
             playerList.add(npcPlayers.get(getNPC));
-            getNpcPlayers().remove(getNPC); //removes from the npc Arraylist so they cannot be chosen again for that game.
+            getNpcPlayers().remove(getNPC); //removes from the npc Arraylist, so they cannot be chosen again for that game.
         }
 
     }//Takes the npcPlayer Arraylist and randomly adds x number of players based on the input from the user.

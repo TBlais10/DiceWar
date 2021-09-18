@@ -33,12 +33,11 @@ public class CLI {
 
     public static int getInt() {
         System.out.print("Input: ");
-        int input = scanner.nextInt();
-        return input;
+        return scanner.nextInt();
     }
 
     public static void exit() {
-        System.out.println("\n---\nAlrighty! Exiting the game. Please come again!\n---");
+        System.out.println("\n---\nClosing the program. See you soon!\n---");
         System.exit(0);
     }
 
