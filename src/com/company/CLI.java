@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Objects;
 import java.util.Scanner;
@@ -95,6 +96,16 @@ public class CLI {
         System.out.println(flavor.repeat(6));
         System.out.println("\n");
         System.out.println(statement);
+        System.out.println("\n");
+        System.out.print(flavor.repeat(6) + "\n");
+    }
+
+    public static void flavorText(String flavor, ArrayList<String> statement) {
+        int randomQuote = (int) (Math.random() * statement.size());
+
+        System.out.println(flavor.repeat(6));
+        System.out.println("\n");
+        System.out.println(statement.get(randomQuote));
         System.out.println("\n");
         System.out.print(flavor.repeat(6) + "\n");
     }

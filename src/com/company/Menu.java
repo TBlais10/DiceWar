@@ -11,9 +11,8 @@ public class Menu {
 
     public static void start() {
         System.out.println("Welcome to Dice Wars!");
-        System.out.println(". . . . . .");
         getDiceQuote();
-        System.out.print(". . . . . .\n");
+        CLI.flavorText(". ", diceQuotes);
         mainMenu();
     } //Starts the program from main w/ a die quote.
 
@@ -96,8 +95,8 @@ public class Menu {
         diceQuotes.add("I shall never believe that God plays dice with the world.\n" +
                 "-Albert Einstein");
 
-        int randomQuote = (int) (Math.random() * diceQuotes.size());
-        System.out.println((diceQuotes.get(randomQuote)));
+//        int randomQuote = (int) (Math.random() * diceQuotes.size());
+//        System.out.println((diceQuotes.get(randomQuote)));
     } //An array of Dice Quotes that will fire randomly at the start of the program.
 
     public static void scoreboard() {
