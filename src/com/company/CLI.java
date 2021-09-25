@@ -92,22 +92,21 @@ public class CLI {
         return input;
     }
 
-    public static void flavorText(String flavor, String statement) {
-        System.out.println(flavor.repeat(6));
-        System.out.println("\n");
+    public static void flavorText(String flavor, int repeat, String statement) {
+        System.out.println(flavor.repeat(repeat));
         System.out.println(statement);
+        System.out.print(flavor.repeat(repeat));
         System.out.println("\n");
-        System.out.print(flavor.repeat(6) + "\n");
     }
 
-    public static void flavorText(String flavor, ArrayList<String> statement) {
+    public static void flavorText(String flavor, int repeat, ArrayList<String> statement) {
         int randomQuote = (int) (Math.random() * statement.size());
 
-        System.out.println(flavor.repeat(6));
+        System.out.println(flavor.repeat(repeat));
         System.out.println("\n");
         System.out.println(statement.get(randomQuote));
         System.out.println("\n");
-        System.out.print(flavor.repeat(6) + "\n");
+        System.out.print(flavor.repeat(repeat) + "\n");
     }
 
     public static void newTerminalScreen(){

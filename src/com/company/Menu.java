@@ -12,7 +12,7 @@ public class Menu {
     public static void start() {
         System.out.println("Welcome to Dice Wars!");
         getDiceQuote();
-        CLI.flavorText(". ", diceQuotes);
+        CLI.flavorText(". ",6,  diceQuotes);
         mainMenu();
     } //Starts the program from main w/ a die quote.
 
@@ -21,40 +21,40 @@ public class Menu {
         System.out.println("Would you like to start a new Dice War?!!! Y/N?");
         String input = CLI.getString(1, 4);
         if (input.substring(0, 1).equalsIgnoreCase("Y")) {
-            CLI.flavorText(". ", "Ok! Which dice war would you like to play?\n1) Standard Dice War\n2) Dungeons and Dragons Dice War");
+            CLI.flavorText(". ",6,  "Ok! Which dice war would you like to play?\n1) Standard Dice War\n2) Dungeons and Dragons Dice War");
             int answer = CLI.getInt(1,2);
             if (answer == 1){ //Starts the process for the Standard Dice War.
-            CLI.flavorText(". ", "Great the Standard Dice War! How many players will there be? Min of 2 players.");
+            CLI.flavorText(". ",6,  "Great the Standard Dice War! How many players will there be? Min of 2 players.");
             int players = CLI.getInt(2, 10);
 
             CLI.newTerminalScreen();
-                CLI.flavorText(". ", "Awesome! Would you like to add extra NPC players? If you don't want to have any additional players, press 0. Otherwise! Enter in a minimum of 1, maximum of 8");
+                CLI.flavorText(". ",6,  "Awesome! Would you like to add extra NPC players? If you don't want to have any additional players, press 0. Otherwise! Enter in a minimum of 1, maximum of 8");
                 int npcPlayers = CLI.getInt(0, 8);
 
             CLI.newTerminalScreen();
-            CLI.flavorText(". ","Ok! How many rounds do you want to play? Min of 1 round, max of 10.");
+            CLI.flavorText(". ",6, "Ok! How many rounds do you want to play? Min of 1 round, max of 10.");
             int rounds = CLI.getInt(1, 10);
 
             CLI.newTerminalScreen();
-            CLI.flavorText(". ","Awesome! What type of dice do you want to use? Enter a number representing how many sides the dice has. Min of 2, max of 20.");
+            CLI.flavorText(". ",6, "Awesome! What type of dice do you want to use? Enter a number representing how many sides the dice has. Min of 2, max of 20.");
             int typeOfDice = CLI.getInt(2, 20);
 
             CLI.newTerminalScreen();
-            CLI.flavorText(". ","Almost done! How many dice will each player roll per round? Min of 1, max of 10.");
+            CLI.flavorText(". ",6, "Almost done! How many dice will each player roll per round? Min of 1, max of 10.");
             int diceAmount = CLI.getInt(1, 10);
 
             newDiceWarConfirmation(players, npcPlayers, rounds, typeOfDice, diceAmount);
             }
 
             else if (answer == 2){
-                CLI.flavorText(". ", "Ah yes! The Dungeons and Dragons Dice War. How many will be joining us at the table? Minimum of 2, max of 10");
+                CLI.flavorText(". ",6,  "Ah yes! The Dungeons and Dragons Dice War. How many will be joining us at the table? Minimum of 2, max of 10");
                 int players = CLI.getInt(2, 10);
 
                 CLI.newTerminalScreen();
-                CLI.flavorText(". ", "Right right... Would you like to add extra NPC players? If you don't want to have any additional players, press 0. Otherwise! Enter in a minimum of 1, maximum of 8");
+                CLI.flavorText(". ",6,  "Right right... Would you like to add extra NPC players? If you don't want to have any additional players, press 0. Otherwise! Enter in a minimum of 1, maximum of 8");
                 int npcPlayers = CLI.getInt(0, 8);
 
-                CLI.flavorText(". ", "Very well. Roll for initiative!");
+                CLI.flavorText(". ",6,  "Very well. Roll for initiative!");
                 new Game(players, npcPlayers,3, 0, 0, 2);
             } //Starts the dnd dice game.
         }
@@ -74,11 +74,11 @@ public class Menu {
         CLI.scanner.nextLine();
         String answer = CLI.getString(1, 3);
         if (answer.substring(0, 1).equalsIgnoreCase("Y")) {
-            CLI.flavorText(". ", "Excellent! Lets get rolling!!!");
+            CLI.flavorText(". ",6, "Excellent! Lets get rolling!!!");
             scoreboard.clear();
             new Game(players, npcPlayers, rounds, typeOfDice, diceAmount, 1);
         } else if (answer.substring(0, 1).equalsIgnoreCase("N")) {
-            CLI.flavorText(". ", "Ok! Restarting the form...");
+            CLI.flavorText(". ",6, "Ok! Restarting the form...");
         }
     } //This code takes the inputs from the Menu for Standard Dice War and asks the user to confirm their choices or start the forum again.
 
@@ -108,7 +108,7 @@ public class Menu {
                 System.out.println((i + 1) + ") " + scoreboard.get(i).getName() + "....." + scoreboard.get(i).getScore() + " Points");
             }
         }
-        CLI.flavorText(". ", "MAIN MENU");
+        CLI.flavorText(". ", 6,  "MAIN MENU");
     } //Takes the Arraylist full of the player scores from last game and shows.
 
     public static List<Player> getScoreboard() {

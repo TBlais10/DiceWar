@@ -28,10 +28,10 @@ public class Game {
 
     public void startGame() {
         CLI.newTerminalScreen();
-        CLI.flavorText(". ", "Welcome to Dice War! The rules are simple, roll the highest number of dice to win the game! This game will last for " + numOfRounds + "rounds. May you roll well!");
+        CLI.flavorText(". ", 6, "Welcome to Dice War! The rules are simple, roll the highest number of dice to win the game! This game will last for " + numOfRounds + "rounds. May you roll well!");
 //        System.out.println("Dice type: " + dice.getSides());
         for (int i = 1; i <= numOfRounds; i++) {
-            CLI.flavorText(". ", "Round " + i + "!...Out of " + numOfRounds);
+            CLI.flavorText(". ", 6, "Round " + i + "!...Out of " + numOfRounds);
 
             for (Player player : playerList) {
                 playerTurn(player);
@@ -56,10 +56,10 @@ public class Game {
 
     public void startDnDGame() {
         CLI.newTerminalScreen();
-        CLI.flavorText(". ", "Welcome to the Dungeons and Dragons dice war. Here you will roll a d8, a d6, and a d4 to determine who wins each round...");
-        CLI.flavorText(". ", "Imagine for me if you wandered your way into a high steaks game inside of a high profile gambling table within the prestigious Glass Tower's Casino, 'The Diamond Sleight'. Win or lose is up to the roll of the dice. Who ever among you rolls highest in three rounds takes the pot...");
+        CLI.flavorText(". ", 6, "Welcome to the Dungeons and Dragons dice war. Here you will roll a d8, a d6, and a d4 to determine who wins each round...");
+        CLI.flavorText(". ",6,  "Imagine for me if you wandered your way into a high steaks game inside of a high profile gambling table within the prestigious Glass Tower's Casino, 'The Diamond Sleight'. Win or lose is up to the roll of the dice. Who ever among you rolls highest in three rounds takes the pot...");
         for (int i = 1; i <= 3; i++) {
-            CLI.flavorText(". ", "Round " + i + "!...Out of " + numOfRounds);
+            CLI.flavorText(". ",6,  "Round " + i + "!...Out of " + numOfRounds);
 
             for (Player player : playerList) {
                 playerTurn(player);
@@ -92,7 +92,7 @@ public class Game {
                 roundScore += hand.dice.get(i).getValue();
             }
             player.setScore(player.getScore() + roundScore);
-            CLI.flavorText(". ", player.getName() + " rolled a total of " + roundScore + " for this round!");
+            CLI.flavorText(". ", 6, player.getName() + " rolled a total of " + roundScore + " for this round!");
 //            System.out.println(player.getScore() + " The score");
         }
     }
@@ -100,7 +100,7 @@ public class Game {
     public void printScore(int roundNum) {
 
         int highestScore = 0; //to keep track of who is leading
-        CLI.flavorText("-", "Total Scores as of Round " + roundNum + "!");
+        CLI.flavorText("-",6, "Total Scores as of Round " + roundNum + "!");
         for (Player player : playerList) {
             System.out.println(player.getName() + " has a total of " + player.getScore() + " points.");
 
@@ -125,7 +125,7 @@ public class Game {
     private void winnerCircle() {
         CLI.newTerminalScreen();
         if (winner.size() == 1) { //if there is one winner.
-            CLI.flavorText(". ", "And our winner for this Dice war is..." + winner.get(0).getName() + " with " + winner.get(0).getScore() + " points! Congratulations!!!");
+            CLI.flavorText(". ", 6,  "And our winner for this Dice war is..." + winner.get(0).getName() + " with " + winner.get(0).getScore() + " points! Congratulations!!!");
         } else {
             System.out.println(". ".repeat(6) + "\n");
             System.out.println("And we have " + winner.size() + " winners! Congratulations to...");
