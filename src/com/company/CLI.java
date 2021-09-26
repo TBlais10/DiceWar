@@ -32,10 +32,6 @@ public class CLI {
         return input;
     }
 
-    public static int getInt() {
-        System.out.print("Input: ");
-        return scanner.nextInt();
-    }
 
     public static void exit() {
         System.out.println("\n---\nClosing the program. See you soon!\n---");
@@ -83,11 +79,20 @@ public class CLI {
     }
 
     public static String getString() {
+        String input;
+        while (true){
+            try {
         System.out.print("Input: ");
-        String input = scanner.nextLine().trim();
+        input = scanner.nextLine().trim();
+
         if (input.length() == 0) {
             System.out.println("The text box cannot be empty! Please try again.");
-            return getString();
+        } else {
+            break;
+        }
+            } catch (Exception exception){
+                System.out.println("An unknown error appeared. Please try again.");
+            }
         }
         return input;
     }
