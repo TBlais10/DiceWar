@@ -78,6 +78,26 @@ public class CLI {
         return userInput;
     }
 
+    public static float getFloat(float min, float max){
+        float input = 0;
+        try{
+            while(true){
+                input = scanner.nextFloat();
+                if (max < input || min > input){
+                    System.out.println("Input out of range! Please provide a number between " + min + " and " + max + ".");
+                } else {
+                    break;
+                }
+            }
+        } catch (InputMismatchException exception){
+            System.out.println("Incorrect input! Please try again.");
+        }
+        catch (Exception exception){
+            System.out.println("Unknown error! Please try again.");
+        }
+            return input;
+    }
+
     public static String getString() {
         String input;
         while (true){
