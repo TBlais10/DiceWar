@@ -82,6 +82,7 @@ public class CLI {
         float input = 0;
         try{
             while(true){
+                System.out.print("Input: ");
                 input = scanner.nextFloat();
                 if (max < input || min > input){
                     System.out.println("Input out of range! Please provide a number between " + min + " and " + max + ".");
@@ -96,6 +97,26 @@ public class CLI {
             System.out.println("Unknown error! Please try again.");
         }
             return input;
+    }
+
+    public static byte getByte(byte min, byte max){
+        byte input = 0;
+        try{
+            while(true){
+                input = scanner.nextByte();
+                if (input > max || input < min){
+                    System.out.println("Input out of range! Please enter a different number.");
+                } else {
+                    break;
+                }
+            }
+        } catch (InputMismatchException exception){
+            System.out.println("Incorrect input! Please try again.");
+        }
+        catch (Exception exception){
+            System.out.println("Unknown error! Please try again.");
+        }
+        return input;
     }
 
     public static String getString() {
