@@ -15,7 +15,7 @@ public class CLI {
             try {
                 //String[] blarg = {}; //This is a test for error messages
                 System.out.print("Input: ");
-                input = scanner.nextInt();
+                input = Integer.parseInt(scanner.nextLine());
                 //String asdf = blarg[1]; //This is a test for error messages
                 if (input > max || input < min) {
                     System.out.println("Input is out of range! Please try again with a number between " + min + " and " + max + ".");
