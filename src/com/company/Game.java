@@ -30,6 +30,17 @@ public class Game {
         CLI.newTerminalScreen();
         CLI.flavorText(". ", 6, "Welcome to Dice War! The rules are simple, roll the highest number of dice to win the game! This game will last for " + numOfRounds + "rounds. May you roll well!");
 //        System.out.println("Dice type: " + dice.getSides());
+        runGame();
+    }
+
+    public void startDnDGame() {
+        CLI.newTerminalScreen();
+        CLI.flavorText(". ", 6, "Welcome to the Dungeons and Dragons dice war. Here you will roll a d8, a d6, and a d4 to determine who wins each round...");
+        CLI.flavorText(". ",6,  "Imagine for me if you wandered your way into a high steaks game inside of a high profile gambling table within the prestigious Glass Tower's Casino, 'The Diamond Sleight'. Win or lose is up to the roll of the dice. Who ever among you rolls highest in three rounds takes the pot...");
+        runGame();
+    }
+
+    private void runGame() {
         for (int i = 1; i <= numOfRounds; i++) {
             CLI.flavorText(". ", 6, "Round " + i + "!...Out of " + numOfRounds);
 
@@ -43,38 +54,12 @@ public class Game {
                 if (Objects.equals(answer, "")) {
                     System.out.println("Moving to round " + (i + 1) + " !");
                 }
-                } else {
-                    System.out.println("\nThat was the Last Round! Ready to see the final scores? Press enter to continue.");
-                    String answer = CLI.getString(0,1);
-                    if (Objects.equals(answer, "")) {
-                        System.out.println("Moving to scoring...");
-                        winnerCircle();
-                    }
-            }
-        }
-    }
-
-    public void startDnDGame() {
-        CLI.newTerminalScreen();
-        CLI.flavorText(". ", 6, "Welcome to the Dungeons and Dragons dice war. Here you will roll a d8, a d6, and a d4 to determine who wins each round...");
-        CLI.flavorText(". ",6,  "Imagine for me if you wandered your way into a high steaks game inside of a high profile gambling table within the prestigious Glass Tower's Casino, 'The Diamond Sleight'. Win or lose is up to the roll of the dice. Who ever among you rolls highest in three rounds takes the pot...");
-        for (int i = 1; i <= 3; i++) {
-            CLI.flavorText(". ",6,  "Round " + i + "!...Out of " + numOfRounds);
-
-            for (Player player : playerList) {
-                playerTurn(player);
-            }
-            printScore(i);
-            if (i + 1 != numOfRounds) {
-                System.out.println("\nReady for the next round? Press enter to continue.");
-                String answer = CLI.getString(0, 1);
+            } else {
+                System.out.println("\nThat was the Last Round! Ready to see the final scores? Press enter to continue.");
+                String answer = CLI.getString(0,1);
                 if (Objects.equals(answer, "")) {
-                    System.out.println("Moving to round " + (i + 1) + " !");
-                } else {
-                    System.out.println("\nThat was the Last Round! Ready to see the final scores? Press enter to continue.");
-                    if (Objects.equals(answer, "")) {
-                        System.out.println("Moving to scoring...");
-                    }
+                    System.out.println("Moving to scoring...");
+                    winnerCircle();
                 }
             }
         }
@@ -134,9 +119,9 @@ public class Game {
             }//Following code is for multiple winners.
             System.out.println("\n" + ". ".repeat(6));
         }
-        Menu.getScoreboard().clear();//clears the board from the last game to make way for this new set of scores.
+        Scoreboard.getScoreboard().clear();//clears the board from the last game to make way for this new set of scores.
         for (Player players : playerList) {
-            Menu.getScoreboard().add(players);
+            Scoreboard.getScoreboard().add(players);
         }
         Menu.mainMenu();
     }

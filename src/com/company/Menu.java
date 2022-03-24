@@ -6,18 +6,15 @@ import java.util.List;
 
 public class Menu {
 
-    private static ArrayList<String> diceQuotes = new ArrayList<>();
-    private static List<Player> scoreboard = new ArrayList<>();
-
     public static void start() {
         System.out.println("Welcome to Dice Wars!");
-        getDiceQuote();
-        CLI.flavorText(". ",6,  diceQuotes);
+        Quote.generateDiceQuote();
+        CLI.flavorText(". ",6,  Quote.getDiceQuotes());
         mainMenu();
     } //Starts the program from main w/ a die quote.
 
     public static void mainMenu() {
-        scoreboard();
+        Scoreboard.getScoreboard();
         System.out.println("Would you like to start a new Dice War?!!! Y/N?");
         String input = CLI.getString(1, 4);
         if (input.substring(0, 1).equalsIgnoreCase("Y")) {
@@ -75,43 +72,11 @@ public class Menu {
         String answer = CLI.getString(1, 3);
         if (answer.substring(0, 1).equalsIgnoreCase("Y")) {
             CLI.flavorText(". ",6, "Excellent! Lets get rolling!!!");
-            scoreboard.clear();
+            Scoreboard.getScoreboard().clear();
             new Game(players, npcPlayers, rounds, typeOfDice, diceAmount, 1);
         } else if (answer.substring(0, 1).equalsIgnoreCase("N")) {
             CLI.flavorText(". ",6, "Ok! Restarting the form...");
         }
     } //This code takes the inputs from the Menu for Standard Dice War and asks the user to confirm their choices or start the forum again.
 
-    public static void getDiceQuote() {
-        diceQuotes.add("The dice of God are always loaded.\n" +
-                "- Ralph Waldo Emerson");
-        diceQuotes.add("Who then may trust the dice, at Fortune's throw?\n" +
-                "- Geoffrey Chaucer");
-        diceQuotes.add("You can blow on the dice all you want, but whether they come up seven is still a function of random luck.\n" +
-                "- Barry Ritholtz");
-        diceQuotes.add("Fortune confounds the wise,\n" +
-                "And when they least expect it turns the dice.\n" +
-                "-John Dryden");
-        diceQuotes.add("I shall never believe that God plays dice with the world.\n" +
-                "-Albert Einstein");
-
-//        int randomQuote = (int) (Math.random() * diceQuotes.size());
-//        System.out.println((diceQuotes.get(randomQuote)));
-    } //An array of Dice Quotes that will fire randomly at the start of the program.
-
-    public static void scoreboard() {
-        if (scoreboard.size() != 0) {
-            System.out.println("Here is the scoreboard from our previous game!");
-            Collections.sort(scoreboard);
-            Collections.reverse(scoreboard);
-            for (int i = 0; i < scoreboard.size(); i++) {
-                System.out.println((i + 1) + ") " + scoreboard.get(i).getName() + "....." + scoreboard.get(i).getScore() + " Points");
-            }
-        }
-        CLI.flavorText(". ", 6,  "MAIN MENU");
-    } //Takes the Arraylist full of the player scores from last game and shows.
-
-    public static List<Player> getScoreboard() {
-        return scoreboard;
-    }
 }
